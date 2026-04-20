@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Боевой регламент команды "РОБЕРУСЬ"</title>
+<style>
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background-color: #f4f4f4;
+  margin: 20px;
+}
+h2 {
+  text-align: center;
+  color: #2c3e50;
+  margin-bottom: 20px;
+}
+.nav-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  background-color: #333;
+  border-radius: 8px;
+  padding: 10px 0;
+  margin-bottom: 30px;
+}
+.nav-container a {
+  color: #fff;
+  padding: 12px 20px;
+  margin: 5px 10px;
+  text-decoration: none;
+  font-weight: 600;
+  border-radius: 4px;
+  transition: background-color 0.3s;
+}
+.nav-container a:hover {
+  background-color: #555;
+}
+.accordion {
+  background-color: #2980b9;
+  color: #fff;
+  cursor: pointer;
+  padding: 15px 20px;
+  width: 100%;
+  border: none;
+  text-align: left;
+  outline: none;
+  font-size: 16px;
+  border-radius: 6px;
+  margin-top: 10px;
+  transition: background-color 0.3s, transform 0.2s;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.accordion:hover {
+  background-color: #3498db;
+  transform: scale(1.02);
+}
+.accordion.active {
+  background-color: #1c5980;
+}
+.panel {
+  padding: 0 20px;
+  background-color: #ecf0f1;
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.5s ease, padding 0.3s;
+  border-radius: 0 0 6px 6px;
+}
+.panel.open {
+  padding: 15px 20px;
+}
+.panel ul {
+  list-style-type: disc;
+  padding-left: 20px;
+  margin: 0;
+}
+.arrow {
+  transition: transform 0.3s;
+}
+.accordion.active .arrow {
+  transform: rotate(90deg);
+}
+</style>
+</head>
+<body>
+<h2>Боевой регламент команды "РОБЕРУСЬ"</h2>
+
+<!-- Блок ссылок на страницы -->
+<div class="nav-container">
+  <a href="../index.html">Главная</a>
+  <a href="./about.html">О министерстве</a>
+  <a href="./news.html">Новости</a>
+  <a href="./contacts.html">Контакты</a>
+  <a href="./documents.html">Документы</a>
+  <a href="./image.html">Фото бойцов</a>
+  <a href="./prifile.html">Наши бойцы</a>
+</div>
+
+<!-- Остальной контент с аккордеонами -->
+<button class="accordion">1. Общие положения <span class="arrow">▶</span></button>
+<div class="panel">
+  <p>Этот боевой регламент регулирует порядок действий участников команды "РОБЕРУСЬ" во время боевых и тренировочных мероприятий, обеспечение безопасности и взаимодействия.</p>
+</div>
+
+<button class="accordion">2. Подготовка к боевым действиям <span class="arrow">▶</span></button>
+<div class="panel">
+  <ul>
+    <li>Проведение предварительных инструктажей по технике безопасности и тактике</li>
+    <li>Проверка снаряжения и оружия перед каждым выходом</li>
+    <li>Обозначение задач и ролей среди участников</li>
+  </ul>
+</div>
+
+<button class="accordion">3. Командование и связь <span class="arrow">▶</span></button>
+<div class="panel">
+  <ul>
+    <li>Командир команды отдаёт приказы и контролирует выполнение задач</li>
+    <li>Использование радиосвязи для координации действий</li>
+    <li>Приказы должны быть ясными и понятными для всех участников</li>
+  </ul>
+</div>
+
+<button class="accordion">4. Тактика и действия в бою <span class="arrow">▶</span></button>
+<div class="panel">
+  <ul>
+    <li>Соблюдать порядок и дисциплину</li>
+    <li>Использовать укрытия и соблюдать безопасную дистанцию</li>
+    <li>В случае ранения или поломки техники — немедленно сообщить командиру</li>
+    <li>Следовать установленным планам и маршрутам</li>
+  </ul>
+</div>
+
+<button class="accordion">5. Безопасность <span class="arrow">▶</span></button>
+<div class="panel">
+  <ul>
+    <li>Использовать средства индивидуальной защиты</li>
+    <li>Запрещается направлять оружие на товарищей без необходимости</li>
+    <li>Обеспечивать безопасность окружающих и зрителей</li>
+    <li>При возникновении опасной ситуации — немедленно прекратить действия и доложить руководству</li>
+  </ul>
+</div>
+
+<button class="accordion">6. Взаимодействие с организаторами и судьями <span class="arrow">▶</span></button>
+<div class="panel">
+  <ul>
+    <li>Следовать указаниям судей и организаторов</li>
+    <li>Сообщать о нарушениях и инцидентах</li>
+    <li>Поддерживать честную и спортивную атмосферу</li>
+  </ul>
+</div>
+
+<button class="accordion">7. Заключительные положения <span class="arrow">▶</span></button>
+<div class="panel">
+  <ul>
+    <li>Все участники обязаны соблюдать данный регламент</li>
+    <li>Нарушения могут повлечь дисциплинарные меры или исключение из команды</li>
+    <li>Регламент подлежит актуализации по мере необходимости</li>
+  </ul>
+</div>
+
+<script>
+const accordions = document.querySelectorAll('.accordion');
+
+accordions.forEach(btn => {
+  btn.addEventListener('click', () => {
+    // Переключение активного состояния
+    btn.classList.toggle('active');
+
+    // Перекрут стрелки
+    const arrow = btn.querySelector('.arrow');
+    if (btn.classList.contains('active')) {
+      arrow.style.transform = 'rotate(90deg)';
+    } else {
+      arrow.style.transform = 'rotate(0deg)';
+    }
+
+    // Работа с панелью
+    const panel = btn.nextElementSibling;
+    if (panel.classList.contains('open')) {
+      panel.classList.remove('open');
+      panel.style.maxHeight = null;
+    } else {
+      panel.classList.add('open');
+      panel.style.maxHeight = panel.scrollHeight + 'px';
+    }
+  });
+});
+</script>
+</body>
+</html>

@@ -1,0 +1,556 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Бойцы</title>
+<!-- Подключение шрифта Google для красивого текста -->
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet" />
+<style>
+  body {
+    font-family: 'Roboto', sans-serif;
+    background-color: #f0f4f8;
+    margin: 0;
+    padding: 30px;
+    color: #333;
+  }
+
+  /* Объединенный серый блок с названием, шариком и кнопками */
+  .header-block {
+    background-color: #2c3e50; /* темно-серый фон */
+    padding: 15px;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+  }
+
+  /* Верхняя часть с названием и шариком */
+  .title-ball {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+  }
+
+  .title {
+    font-size: 24px;
+    font-weight: 700;
+    color: #fff;
+  }
+
+  /* Анимация бегущего шарика вправо и влево */
+  .ball {
+    width: 30px;
+    height: 30px;
+    background-color: #ecf0f1;
+    border-radius: 50%;
+    animation: moveHorizontal 2s infinite ease-in-out;
+  }
+
+  @keyframes moveHorizontal {
+    0% { transform: translateX(0); }
+    50% { transform: translateX(100px); }
+    100% { transform: translateX(0); }
+  }
+
+  /* Надпись по центру */
+  .center-text {
+    color: #fff;
+    font-size: 20px;
+    font-weight: 700;
+    text-align: center;
+  }
+
+  /* Блок с кнопками внутри объединенного блока */
+  .buttons-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 10px;
+  }
+
+  /* Динамичные серые кнопки */
+  .dynamic-button {
+    padding: 12px 20px;
+    border: none;
+    border-radius: 25px;
+    background: linear-gradient(135deg, #7f8c8d, #95a5a6);
+    color: #fff;
+    font-size: 14px;
+    cursor: pointer;
+    transition: transform 0.2s, box-shadow 0.2s, background 0.3s;
+  }
+
+  .dynamic-button:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+    background: linear-gradient(135deg, #95a5a6, #7f8c8d);
+  }
+
+  /* Стиль формы */
+  form {
+    max-width: 900px;
+    margin: 20px auto;
+    background: #ffffff;
+    padding: 20px 30px;
+    border-radius: 10px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  }
+
+  form label {
+    display: block;
+    margin-top: 15px;
+    font-weight: 600;
+  }
+
+  form input[type="text"],
+  form input[type="number"],
+  form input[type="url"],
+  form textarea {
+    width: 100%;
+    padding: 10px 15px;
+    margin-top: 8px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    font-family: 'Roboto', sans-serif;
+    font-size: 14px;
+    transition: border-color 0.3s;
+  }
+
+  form input[type="text"]:focus,
+  form input[type="number"]:focus,
+  form input[type="url"]:focus,
+  form textarea:focus {
+    border-color: #2980b9;
+    outline: none;
+  }
+
+  button {
+    margin-top: 20px;
+    padding: 12px 25px;
+    background-color: #2980b9;
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s;
+  }
+
+  button:hover {
+    background-color: #3498db;
+  }
+
+  /* Контейнер карточек */
+  .cards {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding-bottom: 50px; /* место для скролла */
+  }
+
+  /* Карточки */
+  .card {
+    background: #fff;
+    border-radius: 15px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    width: 250px;
+    overflow: hidden;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 10px;
+    position: relative;
+    transition: transform 0.2s, box-shadow 0.2s;
+  }
+
+  .card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+  }
+
+  .card img {
+    width: 100%;
+    height: 150px;
+    object-fit: cover;
+    border-radius: 10px;
+  }
+
+  .card h3 {
+    margin: 15px 10px 8px 10px;
+    font-size: 20px;
+    color: #2c3e50;
+  }
+
+  .card p {
+    margin: 5px 10px;
+    font-size: 14px;
+    line-height: 1.4;
+  }
+
+  /* Кнопки внутри карточки */
+  .card button {
+    margin-top: 10px;
+    padding: 8px 12px;
+    border: none;
+    border-radius: 6px;
+    background: #3498db;
+    color: #fff;
+    cursor: pointer;
+    font-size: 13px;
+    transition: background 0.3s;
+  }
+  .card button:hover {
+    background: #2980b9;
+  }
+
+  /* Адаптивность */
+  @media(max-width: 600px) {
+    form {
+      padding: 15px 20px;
+    }
+    .cards {
+      justify-content: center;
+    }
+  }
+
+  /* Модальные окна */
+  .modal {
+    display: none; /* скрыто по умолчанию */
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.5);
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+  }
+
+  .modal.show {
+    display: flex;
+  }
+
+  .modal-content {
+    background: #fff;
+    border-radius: 15px;
+    padding: 20px;
+    max-width: 400px;
+    width: 90%;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+    position: relative;
+    animation: popIn 0.3s ease;
+  }
+
+  @keyframes popIn {
+    from { transform: scale(0.8); opacity: 0; }
+    to { transform: scale(1); opacity: 1; }
+  }
+
+  .close-btn {
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    background: none;
+    border: none;
+    font-size: 22px;
+    cursor: pointer;
+    color: #444;
+  }
+
+  .close-btn:hover {
+    color: #000;
+  }
+
+  .modal-img {
+    width: 100%;
+    height: auto;
+    border-radius: 10px;
+    margin-bottom: 15px;
+  }
+</style>
+</head>
+<body>
+
+<!-- Объединенный серый блок с названием, шариком и кнопками, с центровой надписью -->
+<div class="header-block">
+  <div class="title-ball">
+    <div class="title">СК "РОБЕРУСЬ"</div>
+    <div class="ball"></div>
+  </div>
+  <div class="buttons-container">
+    <button class="dynamic-button" id="addPersonBtn">Добавить бойца</button>
+    <a class="dynamic-button" href="../index.html">Главная</a>
+    <a class="dynamic-button" href="./about.html">О министерстве</a>
+    <a class="dynamic-button" href="./news.html">Новости</a>
+    <a class="dynamic-button" href="./contacts.html">Контакты</a>
+    <a class="dynamic-button" href="./documents.html">Документы</a>
+    <a class="dynamic-button" href="./image.html">Фото бойцов</a>
+    <a class="dynamic-button" href="./YCTAB.html">Устав СК</a>
+  </div>
+</div>
+<h1>Наши бойцы</h1>
+<form id="personForm" style="display:none;">
+  <label>Позывной:
+    <input type="text" id="callSign" placeholder="Введите позывной" required />
+  </label>
+  <label>Город:
+    <input type="text" id="city" placeholder="Введите город" required />
+  </label>
+  <label>Имя:
+    <input type="text" id="name" placeholder="Введите имя" required />
+  </label>
+  <label>Звание:
+    <input type="text" id="rank" placeholder="Введите звание" />
+  </label>
+  <label>Описание:
+    <textarea id="description" rows="3" placeholder="Краткое описание"></textarea>
+  </label>
+  <label>Возраст:
+    <input type="number" id="age" placeholder="Возраст" />
+  </label>
+  <label>Номер:
+    <input type="text" id="number" placeholder="Номер" />
+  </label>
+  <label>Фото (URL):
+    <input type="url" id="photo" placeholder="Ссылка на изображение" />
+  </label>
+  <button type="submit">Добавить</button>
+</form>
+
+<div class="cards" id="cardsContainer"></div>
+
+<!-- Модальное окно для добавления с паролем -->
+<div class="modal" id="modalAdd">
+  <div class="modal-content" id="modalAddContent">
+    <button class="close-btn" id="closeAdd">&times;</button>
+    <h3>Введите пароль для добавления</h3>
+    <input type="password" id="passwordInput" placeholder="Пароль" style="width:100%; padding:10px; font-size:16px; margin-top:10px; border-radius:8px; border:1px solid #ccc;">
+    <button style="margin-top:15px; width:100%; padding:10px; background:#2980b9; color:#fff; border:none; border-radius:8px; font-size:16px; cursor:pointer;" id="submitPassword">Подтвердить</button>
+  </div>
+</div>
+
+<!-- Модальное окно просмотра профиля -->
+<div class="modal" id="modal">
+  <div class="modal-content" id="modalContent">
+    <button class="close-btn" id="closeModal">&times;</button>
+    <img src="" alt="" class="modal-img" id="modalImage" />
+    <h3 id="modalName"></h3>
+    <p><strong>Позывной:</strong> <span id="modalCallSign"></span></p>
+    <p><strong>Город:</strong> <span id="modalCity"></span></p>
+    <p><strong>Звание:</strong> <span id="modalRank"></span></p>
+    <p><strong>Описание:</strong> <span id="modalDescription"></span></p>
+    <p><strong>Возраст:</strong> <span id="modalAge"></span></p>
+    <p><strong>Номер:</strong> <span id="modalNumber"></span></p>
+  </div>
+</div>
+
+<!-- Модальное окно для редактирования -->
+<div class="modal" id="modalEdit">
+  <div class="modal-content" id="modalEditContent">
+    <button class="close-btn" id="closeEdit">&times;</button>
+    <h3>Редактировать бойца</h3>
+    <form id="editForm">
+      <input type="hidden" id="editIndex" />
+      <label>Позывной:
+        <input type="text" id="editCallSign" required />
+      </label>
+      <label>Город:
+        <input type="text" id="editCity" required />
+      </label>
+      <label>Имя:
+        <input type="text" id="editName" required />
+      </label>
+      <label>Звание:
+        <input type="text" id="editRank" />
+      </label>
+      <label>Описание:
+        <textarea id="editDescription" rows="3"></textarea>
+      </label>
+      <label>Возраст:
+        <input type="number" id="editAge" />
+      </label>
+      <label>Номер:
+        <input type="text" id="editNumber" />
+      </label>
+      <label>Фото (URL):
+        <input type="url" id="editPhoto" />
+      </label>
+      <button type="submit">Сохранить</button>
+    </form>
+  </div>
+</div>
+
+<script>
+  const profiles = JSON.parse(localStorage.getItem('profiles')) || [];
+
+  const form = document.getElementById('personForm');
+  const container = document.getElementById('cardsContainer');
+
+  // Отображаем все профили
+  profiles.forEach((profile, index) => addProfileToDOM(profile, index));
+
+  // Обработка кнопки "Добавить бойца"
+  document.getElementById('addPersonBtn').addEventListener('click', () => {
+    document.getElementById('modalAdd').classList.add('show');
+  });
+
+  // Обработка закрытия окна добавления
+  document.getElementById('closeAdd').addEventListener('click', () => {
+    document.getElementById('modalAdd').classList.remove('show');
+    document.getElementById('passwordInput').value = '';
+  });
+
+  // Проверка пароля для открытия формы
+  document.getElementById('submitPassword').addEventListener('click', () => {
+    const password = document.getElementById('passwordInput').value.trim();
+    if(password === 'DED7676') {
+      document.getElementById('modalAdd').classList.remove('show');
+      form.style.display = 'block';
+    } else {
+      alert('Неверный пароль!');
+    }
+  });
+
+  // Обработка формы добавления
+  form.addEventListener('submit', function(e) {
+    e.preventDefault();
+    const profile = {
+      callSign: document.getElementById('callSign').value.trim(),
+      city: document.getElementById('city').value.trim(),
+      name: document.getElementById('name').value.trim(),
+      rank: document.getElementById('rank').value.trim(),
+      description: document.getElementById('description').value.trim(),
+      age: document.getElementById('age').value.trim(),
+      number: document.getElementById('number').value.trim(),
+      photoUrl: document.getElementById('photo').value.trim()
+    };
+    profiles.push(profile);
+    localStorage.setItem('profiles', JSON.stringify(profiles));
+    addProfileToDOM(profile, profiles.length - 1);
+    form.reset();
+    form.style.display = 'none';
+  });
+
+  // Функция для отображения профиля
+  function addProfileToDOM(profile, index) {
+    const card = document.createElement('div');
+    card.className = 'card';
+
+    card.innerHTML = `
+      <img src="${profile.photoUrl || 'https://via.placeholder.com/250x150?text=Фото'}" alt="${profile.name}">
+      <h3>${profile.name}</h3>
+      <p><strong>Позывной:</strong> ${profile.callSign}</p>
+      <p><strong>Город:</strong> ${profile.city}</p>
+      <p><strong>Звание:</strong> ${profile.rank || '—'}</p>
+      <p><strong>Описание:</strong> ${profile.description || '—'}</p>
+      <p><strong>Возраст:</strong> ${profile.age || '—'}</p>
+      <p><strong>Номер:</strong> ${profile.number || '—'}</p>
+    `;
+    // при клике открываем просмотр профиля
+    card.addEventListener('click', () => openModal(profile));
+
+    // Создаем кнопку редактирования
+    const editBtn = document.createElement('button');
+    editBtn.textContent = 'Редактировать';
+    editBtn.style.cssText = 'margin:10px auto; display:block; padding:8px 12px; border:none; border-radius:6px; background:#3498db; color:#fff; cursor:pointer;';
+    editBtn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      // запрос пароля
+      const pass = prompt('Введите пароль для редактирования:');
+      if(pass === 'DED7676') {
+        openEditModal(index);
+      } else {
+        alert('Неверный пароль!');
+      }
+    });
+    card.appendChild(editBtn);
+
+    // добавляем карточку
+    document.getElementById('cardsContainer').appendChild(card);
+  }
+
+  // Модальное окно просмотра профиля
+  const modal = document.getElementById('modal');
+  document.querySelectorAll('.close-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      modal.style.display = 'none';
+    });
+  });
+  window.addEventListener('click', (e) => {
+    if(e.target === modal) modal.style.display = 'none';
+  });
+
+  function openModal(profile) {
+    document.getElementById('modalImage').src = profile.photoUrl || 'https://via.placeholder.com/400x300?text=Фото';
+    document.getElementById('modalName').textContent = profile.name;
+    document.getElementById('modalCallSign').textContent = profile.callSign;
+    document.getElementById('modalCity').textContent = profile.city;
+    document.getElementById('modalRank').textContent = profile.rank || '—';
+    document.getElementById('modalDescription').textContent = profile.description || '—';
+    document.getElementById('modalAge').textContent = profile.age || '—';
+    document.getElementById('modalNumber').textContent = profile.number || '—';
+    document.getElementById('modal').style.display = 'flex';
+  }
+
+  // === редактирование ===
+  const modalEdit = document.getElementById('modalEdit');
+  const closeEditBtn = document.getElementById('closeEdit');
+  const editForm = document.getElementById('editForm');
+
+  let currentEditIndex = null; // индекс редактируемого профиля
+
+  // закрытие окна редактирования
+  closeEditBtn.addEventListener('click', () => {
+    modalEdit.classList.remove('show');
+  });
+
+  // открыть окно редактирования
+  function openEditModal(index) {
+    const profile = profiles[index];
+    document.getElementById('editIndex').value = index;
+    document.getElementById('editCallSign').value = profile.callSign;
+    document.getElementById('editCity').value = profile.city;
+    document.getElementById('editName').value = profile.name;
+    document.getElementById('editRank').value = profile.rank;
+    document.getElementById('editDescription').value = profile.description;
+    document.getElementById('editAge').value = profile.age;
+    document.getElementById('editNumber').value = profile.number;
+    document.getElementById('editPhoto').value = profile.photoUrl;
+    currentEditIndex = index;
+    modalEdit.classList.add('show');
+  }
+
+  // сохранение изменений
+  editForm.addEventListener('submit', (e) => {
+    e.preventDefault();
+    if (currentEditIndex !== null) {
+      profiles[currentEditIndex] = {
+        callSign: document.getElementById('editCallSign').value.trim(),
+        city: document.getElementById('editCity').value.trim(),
+        name: document.getElementById('editName').value.trim(),
+        rank: document.getElementById('editRank').value.trim(),
+        description: document.getElementById('editDescription').value.trim(),
+        age: document.getElementById('editAge').value.trim(),
+        number: document.getElementById('editNumber').value.trim(),
+        photoUrl: document.getElementById('editPhoto').value.trim(),
+      };
+      localStorage.setItem('profiles', JSON.stringify(profiles));
+      refreshProfiles();
+      modalEdit.classList.remove('show');
+    }
+  });
+
+  // обновление всех карточек
+  function refreshProfiles() {
+    container.innerHTML = '';
+    profiles.forEach((profile, index) => addProfileToDOM(profile, index));
+  }
+</script>
+</body>
+</html>

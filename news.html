@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Новости - Министерство СК "РОБЕРУСЬ"</title>
+    <link rel="stylesheet" href="../style/news.css" />
+
+</head>
+<body>
+    <div class="header">
+        <div class="container">
+            <h1>Министерство СК "РОБЕРУСЬ"</h1>
+            <p>Официальный сайт министерства специальных тактических операций</p>
+        </div>
+    </div>
+    
+    <nav>
+        <div class="container">
+            <a href="../index.html">Главная</a>
+            <a href="./about.html">О министерстве</a>
+            <a href="./news.html">Новости</a>
+            <a href="./contacts.html">Контакты</a>
+            <a href="./documents.html">Документы</a>
+            <a href="./image.html">Фото бойцов</a>
+         <a href="./prifile.html">Наши бойцы</a>
+           <a href="./YCTAB.html">Устав СК</a>
+        </div>
+    </nav>
+    
+    <div class="container">
+        <div class="content">
+            <h2>Новости</h2>
+            
+            <div class="news-container">
+                <div class="news-grid">
+                    <div class="news-card" onclick="openNewsModal('news1')">
+                        <img src="../galary/боевые.jpg" alt="Награждение солдат" class="news-thumbnail">
+                        <div class="news-preview">
+                            <h3>Награждение солдат</h3>
+                            <p>Новые медали за боевые заслуги</p>
+                            <span class="news-date">1 ноября 2024</span>
+                        </div>
+                    </div>
+
+                    <div class="news-card" onclick="openNewsModal('news2')">
+                        <img src="../galary/Kamo.PNG" alt="Новая экипировка" class="news-thumbnail">
+                        <div class="news-preview">
+                            <h3>Принят общий цвет камуфляжа</h3>
+                            <p>Официальный камуфляж ск</p>
+                            <span class="news-date">25 октября 2024</span>
+                        </div>
+                    </div>
+
+            
+
+    <!-- Модальные окна для новостей -->
+    <div id="news1" class="modal">
+        <div class="modal-content">
+            <span class="close-button" onclick="closeNewsModal('news1')">×</span>
+            <h2>Награждение солдат</h2>
+            <div class="modal-image">
+                <img src="../galary/медали новые.webp" alt="Новые медали">
+            </div>
+            <div class="modal-text">
+                <p><strong>1 ноября 2024 года</strong> - В оборот были введены новые награды для солдат: медаль "За первую игру", которая вручается бойцам, проявившим себя в первых боевых столкновениях.</p>
+                <p>Награда изготовлена из высококачественного металла с эмалевым покрытием и представляет собой символ мужества и отваги, проявленных в ходе тренировочных операций.</p>
+                <p>Первыми обладателями новой награды стал 1 боец, отличившийся в последних учениях.</p>
+            </div>
+        </div>
+    </div>
+
+    <div id="news2" class="modal">
+        <div class="modal-content">
+            <span class="close-button" onclick="closeNewsModal('news2')">×</span>
+            <h2>Обязательный цвет камуфляжа бойцов</h2>
+            <div class="modal-image">
+                <img src="../galary/Kamo.PNG" alt="Зимняя экипировка">
+            </div>
+            <div class="modal-text">
+                <p><strong>25 октября 2024 года</strong> - Обязательная форма для всех Подразделений цвет:"Мультикам"</p>
+                
+          
+                
+            </div>
+        </div>
+    </div>
+
+ 
+    </div>
+    
+    <footer>
+        <div class="container">
+            &copy; 108 ошрб вс РФ 2025 (Страйкбол)
+        </div>
+    </footer>
+
+    <script>
+        // Функции для работы с модальными окнами новостей
+        function openNewsModal(modalId) {
+            const modal = document.getElementById(modalId);
+            if (modal) {
+                modal.style.display = "block";
+                
+                // Блокируем прокрутку body
+                document.body.style.overflow = 'hidden';
+            }
+        }
+
+        function closeNewsModal(modalId) {
+            const modal = document.getElementById(modalId);
+            if (modal) {
+                modal.style.display = "none";
+                
+                // Разблокируем прокрутку body
+                document.body.style.overflow = '';
+            }
+        }
+
+        // Закрытие модального окна при клике вне его
+        window.onclick = function(event) {
+            if (event.target.classList.contains('modal')) {
+                const modals = document.getElementsByClassName('modal');
+                for (let i = 0; i < modals.length; i++) {
+                    modals[i].style.display = 'none';
+                    document.body.style.overflow = '';
+                }
+            }
+        }
+
+        // Закрытие модального окна при нажатии Escape
+        document.addEventListener('keydown', function(event) {
+            if (event.key === 'Escape') {
+                const modals = document.getElementsByClassName('modal');
+                for (let i = 0; i < modals.length; i++) {
+                    if (modals[i].style.display === 'block') {
+                        modals[i].style.display = 'none';
+                        document.body.style.overflow = '';
+                    }
+                }
+            }
+        });
+
+        // Предотвращение закрытия при клике на контент модального окна
+        document.addEventListener('click', function(event) {
+            if (event.target.closest('.modal-content')) {
+                event.stopPropagation();
+            }
+        });
+
+        // Добавляем обработчики для кнопок закрытия (на всякий случай)
+        document.addEventListener('DOMContentLoaded', function() {
+            const closeButtons = document.querySelectorAll('.close-button');
+            closeButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    const modal = this.closest('.modal');
+                    if (modal) {
+                        closeNewsModal(modal.id);
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>

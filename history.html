@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Интерактивная история команды "РОБЕРУСЬ"</title>
+<!-- Подключение шрифтов -->
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet" />
+<style>
+  body {
+    margin: 0;
+    font-family: 'Montserrat', sans-serif;
+    background-color: #f5f8fa;
+    color: #333;
+    transition: background-color 1s ease;
+    overflow: hidden;
+    position: relative;
+  }
+
+  /* Стили для ссылки "Главная" */
+  .homeButton {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    background: linear-gradient(135deg, #74ebd5, #ACB6E5);
+    padding: 12px 20px;
+    border-radius: 50px;
+    font-size: 1em;
+    color: #fff;
+    text-decoration: none;
+    display: inline-block;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+    transition: background 0.3s, transform 0.2s, box-shadow 0.3s;
+  }
+
+  .homeButton:hover {
+    background: linear-gradient(135deg, #66d9e8, #9fa8e0);
+    transform: scale(1.05);
+    box-shadow: 0 6px 20px rgba(0,0,0,0.3);
+  }
+
+  body.home {
+    /* Можно добавить стили для домашней страницы, если нужно */
+  }
+
+  .container {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 40px 20px;
+    text-align: center;
+    position: relative;
+  }
+
+  h1 {
+    font-size: 2.8em;
+    margin-bottom: 20px;
+    color: #2c3e50;
+  }
+
+  .story {
+    background: #fff;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    margin-bottom: 30px;
+    min-height: 150px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.2em;
+    line-height: 1.6;
+    opacity: 1;
+    transform: translateY(0) scale(1);
+    filter: blur(0);
+    transition: 
+      opacity 0.6s ease, 
+      transform 0.6s ease, 
+      filter 0.6s ease,
+      box-shadow 0.3s ease,
+      color 1s ease;
+  }
+
+  /* Анимация вспышки */
+  @keyframes flash {
+    0% { box-shadow: 0 0 0px rgba(255, 255, 255, 0); }
+    50% { box-shadow: 0 0 20px rgba(255, 255, 255, 0.8); }
+    100% { box-shadow: 0 0 0px rgba(255, 255, 255, 0); }
+  }
+
+  .flash {
+    animation: flash 0.5s ease;
+  }
+
+  /* Анимация масштабирования (пульсации) */
+  @keyframes pulse {
+    0% { transform: translateY(0) scale(1); }
+    50% { transform: translateY(-10px) scale(1.05); }
+    100% { transform: translateY(0) scale(1); }
+  }
+
+  .pulse {
+    animation: pulse 0.6s ease;
+  }
+
+  /* Анимация размытия */
+  @keyframes blurIn {
+    0% { filter: blur(8px); opacity: 0; }
+    100% { filter: blur(0); opacity: 1; }
+  }
+
+  .blurIn {
+    animation: blurIn 0.7s forwards;
+  }
+
+  .buttons {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+  }
+
+  button {
+    background-color: #2980b9;
+    color: #fff;
+    border: none;
+    padding: 12px 20px;
+    font-size: 1em;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.2s;
+  }
+
+  button:hover {
+    background-color: #3498db;
+    transform: scale(1.05);
+  }
+
+  @media(max-width: 600px) {
+    .buttons {
+      flex-direction: column;
+      gap: 10px;
+    }
+  }
+</style>
+</head>
+<body>
+<!-- Ссылка "Главная" -->
+<a href="../index.html" class="homeButton">Главная</a>
+
+<div class="container">
+  <h1>История команды "РОБЕРУСЬ"</h1>
+  <div class="story" id="storyText">
+    Наша команда — это сообщество страйкболистов, объединенных страстью и желанием совершенствоваться.
+  </div>
+  <div class="buttons">
+    <button id="prevBtn">Назад</button>
+    <button id="nextBtn">Далее</button>
+  </div>
+</div>
+
+<!-- Звуковые эффекты -->
+<audio id="switchSound" src="https://actions.google.com/sounds/v1/alarms/beep_short.ogg" preload="auto"></audio>
+<audio id="moreSounds" preload="auto">
+  <source src="https://actions.google.com/sounds/v1/alarms/beep_short.ogg" type="audio/ogg" />
+  <source src="https://actions.google.com/sounds/v1/alarms/beep_short.mp3" type="audio/mpeg" />
+</audio>
+
+<script>
+  const storySegments = [
+    "Группа друзей решила объединиться для совместных тренировок и участия в локальных турнирах. Так начался путь \"РОБЕРУСЬ\".",
+    "Команда была создана в 2024 году. С тех пор мы постоянно развиваемся и совершенствуемся.",
+    "На первых играх было тяжело, но мы продолжали совершенствоваться.",
+    "Начали появляться новые идеи по экипировке, что делало наши игры ещё интереснее.",
+    "Мы начали всё чаще играть, укрепляя командный дух и мастерство.",
+    "Сегодня мы считаем страйкбол неотъемлемой частью нашей жизни.",
+    "В будущем мы хотим открыть военно-патриотический лагерь для детей от 12 лет, где каждый сможет научиться новым навыкам и почувствовать себя настоящим защитником.",
+    "Давайте вместе продвигать нашу идею и развивать команду!"
+  ];
+
+  let currentIndex = 0;
+
+  const storyText = document.getElementById('storyText');
+  const prevBtn = document.getElementById('prevBtn');
+  const nextBtn = document.getElementById('nextBtn');
+  const switchSound = document.getElementById('switchSound');
+
+  // Обновляем историю
+  function updateStory() {
+    switchSound.currentTime = 0;
+    switchSound.play();
+
+    storyText.classList.remove('flash');
+    void storyText.offsetWidth;
+    storyText.classList.add('flash');
+
+    storyText.style.opacity = 0;
+    storyText.style.transform = 'translateY(20px) scale(1)';
+    storyText.style.filter = 'blur(8px)';
+    document.body.style.backgroundColor = getBackgroundColor(currentIndex);
+    setTimeout(() => {
+      storyText.textContent = storySegments[currentIndex];
+      storyText.classList.remove('blurIn');
+      void storyText.offsetWidth;
+      storyText.classList.add('blurIn');
+      storyText.classList.remove('pulse');
+      void storyText.offsetWidth;
+      storyText.classList.add('pulse');
+
+      storyText.style.opacity = 1;
+      storyText.style.transform = 'translateY(0) scale(1)';
+      storyText.style.filter = 'blur(0)';
+    }, 300);
+
+    prevBtn.disabled = currentIndex === 0;
+    nextBtn.disabled = currentIndex === storySegments.length - 1;
+  }
+
+  function getBackgroundColor(index) {
+    const colors = ['#f5f8fa', '#e0f7fa', '#ffe0b2', '#d1c4e9', '#ffe0e0', '#c8e6c9', '#fff9c4', '#ffe0b2'];
+    return colors[index % colors.length];
+  }
+
+  document.getElementById('prevBtn').addEventListener('click', () => {
+    if (currentIndex > 0) {
+      currentIndex--;
+      updateStory();
+    }
+  });
+
+  document.getElementById('nextBtn').addEventListener('click', () => {
+    if (currentIndex < storySegments.length - 1) {
+      currentIndex++;
+      updateStory();
+    }
+  });
+
+  // Кнопка "Главная" — ссылка уже есть
+  // Можно убрать весь скрипт, связанный с этой кнопкой, так как ссылка сама делает переход
+
+  // Изначально показываем первый сегмент
+  updateStory();
+</script>
+</body>
+</html>

@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <link rel="stylesheet" href="./style/style.css" />
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Министерство СК "РОБЕРУСЬ"</title>
+    <style>
+        /* Общие стили для интерактивных элементов */
+        /* Кнопка "Вверх" */
+        #scrollTopBtn {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            padding: 10px 15px;
+            font-size: 20px;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 50%;
+            cursor: pointer;
+            display: none;
+            z-index: 1000;
+            transition: background-color 0.3s, transform 0.3s;
+        }
+        #scrollTopBtn:hover {
+            background-color: #0056b3;
+            transform: scale(1.1);
+        }
+
+        /* Эффект плавного появления разделов */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(50px);
+            transition: opacity 1s ease, transform 1s ease;
+        }
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Анимации при наведении на ссылки */
+        nav a {
+            transition: color 0.3s, transform 0.3s;
+        }
+        nav a:hover {
+            color: #ffcc00;
+            transform: scale(1.05);
+        }
+
+        /* Стиль для поздравительной надписи */
+        .victory-message {
+            text-align: center;
+            font-size: 48px;
+            color: #FF0000;
+            font-weight: bold;
+            margin: 40px 0;
+            font-family: 'Arial', sans-serif;
+            text-shadow: 3px 3px 8px rgba(0,0,0,0.7);
+            background: linear-gradient(45deg, #ff4e00, #ff0000);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: glow 1.5s ease-in-out infinite alternate;
+        }
+
+        @keyframes glow {
+            from {
+                text-shadow: 3px 3px 8px rgba(255, 0, 0, 0.7);
+            }
+            to {
+                text-shadow: 0 0 20px rgba(255, 0, 0, 1);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <div class="container">
+            <div class="title-container">
+                <h1>Министерство СК "РОБЕРУСЬ"</h1>
+                <div class="ball"></div>
+            </div>
+            <p>Официальный сайт министерства специальных тактических операций</p>
+        </div>
+    </div>
+    
+    <nav>
+        <div class="container">
+            <a href="index.html">Главная</a>
+            <a href="./papku/about.html">О министерстве</a>
+            <a href="./papku/news.html">Новости</a>
+            <a href="./papku/contacts.html">Контакты</a>
+            <a href="./papku/documents.html">Документы</a>
+            <a href="./papku/image.html">Фото бойцов</a>
+            <a href="./papku/prifile.html">Наши бойцы</a>
+            <a href="./papku/YCTAB.html">Устав СК</a>
+            <a href="./papku/history.html">История</a>
+            <a href="./papku/igra.html">игра</a>
+        </div>
+    </nav>
+    
+    <div class="container">
+        <div class="content fade-in">
+            <h2>Добро пожаловать</h2>
+            <p>
+                Это официальный сайт Министерства СК "РОБЕРУСЬ". Здесь вы найдете актуальную информацию о деятельности министерства, новости, документы и контакты. Мы специализируемся на точечных операциях в городских чертах и лесных зонах любых стран.
+            </p>
+            
+            <div class="motto">
+                <strong>Наш девиз:</strong>
+                <p>Кровь! Честь! Смерть! Россия!</p>
+            </div>
+            
+            <div class="features fade-in" style="margin-top:20px;">
+                <div class="feature">
+                    <h3>Наша миссия</h3>
+                    <p>Обеспечение безопасности и проведение специальных операций в различных условиях, от городской среды до труднодоступных лесных районов.</p>
+                </div>
+                
+                <div class="feature">
+                    <h3>Наши ценности</h3>
+                    <p>Честь, отвага, профессионализм и преданность Родине - основные принципы, которыми руководствуются наши бойцы.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+   
+    <div class="music-section" style="margin: 20px; text-align: center;">
+      <h3>Гимн СК</h3>
+      <audio id="audioPlayer" controls>
+        <source src="./galary/На заре встаёт — копия.mp3" type="audio/mp3" />
+        Ваш браузер не поддерживает аудио.
+      </audio>
+      <br />
+      <input type="range" id="musicSlider" class="slider" min="0" max="100" value="0" />
+    </div>
+
+    <!-- Кнопка "Вверх" -->
+    <button id="scrollTopBtn" title="Вернуться наверх">⬆️</button>
+
+    <!-- Красивое поздравление с Днем Победы -->
+    <div class="victory-message">С Днем Победы!</div>
+
+    <footer>
+        <div class="container">
+            &copy; 108 ошрб вс РФ 2025 (Страйкбол)
+        </div>
+    </footer>
+
+    <script>
+        // Скрипт для кнопки "Вверх"
+        window.onscroll = function() {
+            const btn = document.getElementById("scrollTopBtn");
+            if (document.body.scrollTop > 200 || document.documentElement.scrollTop > 200) {
+                btn.style.display = "block";
+            } else {
+                btn.style.display = "none";
+            }
+        };
+        document.getElementById("scrollTopBtn").onclick = function() {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        };
+
+        // Скрипт для плавного появления раздела
+        document.addEventListener('DOMContentLoaded', () => {
+            const fadeElements = document.querySelectorAll('.fade-in');
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, { threshold: 0.1 });
+            fadeElements.forEach(el => {
+                observer.observe(el);
+            });
+        });
+
+        // Скрипт для аудио и слайдера
+        const audio = document.getElementById('audioPlayer');
+        const slider = document.getElementById('musicSlider');
+
+        slider.addEventListener('input', () => {
+            if (!isNaN(audio.duration)) {
+                audio.currentTime = (slider.value / 100) * audio.duration;
+            }
+        });
+        audio.addEventListener('timeupdate', () => {
+            if (!isNaN(audio.duration)) {
+                slider.value = (audio.currentTime / audio.duration) * 100;
+            }
+        });
+    </script>
+</body>
+</html>
